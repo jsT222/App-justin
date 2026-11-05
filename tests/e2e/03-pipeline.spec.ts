@@ -1,4 +1,7 @@
+import { rechargerDemo } from "./helpers";
 import { expect, test, type Page } from "@playwright/test";
+
+test.beforeAll(rechargerDemo);
 
 async function glisser(page: Page, hotel: string, colonne: string) {
   const carte = page.locator(`[data-hotel="${hotel}"]`);

@@ -1,4 +1,7 @@
+import { rechargerDemo } from "./helpers";
 import { expect, test } from "@playwright/test";
+
+test.beforeAll(rechargerDemo);
 
 test("dashboard : KPIs, relances, activité, saisonnalité", async ({ page }) => {
   await page.goto("/dashboard");

@@ -1,4 +1,7 @@
+import { rechargerDemo } from "./helpers";
 import { expect, test } from "@playwright/test";
+
+test.beforeAll(rechargerDemo);
 
 const suffixe = Date.now().toString().slice(-6);
 

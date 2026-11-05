@@ -26,9 +26,9 @@ const ICONES: Record<TypeInteraction, React.ComponentType<{ className?: string }
 
 const TYPES_SAISIE: TypeInteraction[] = ["note", "appel", "email", "linkedin", "whatsapp", "rdv"];
 
-export function Composeur({ hotelId, compact, onEnvoye }: { hotelId: string; compact?: boolean; onEnvoye?: () => void }) {
+export function Composeur({ hotelId, compact, onEnvoye, typeInitial = "note", autoFocus }: { hotelId: string; compact?: boolean; onEnvoye?: () => void; typeInitial?: TypeInteraction; autoFocus?: boolean }) {
   const router = useRouter();
-  const [type, setType] = useState<TypeInteraction>("note");
+  const [type, setType] = useState<TypeInteraction>(typeInitial);
   const [texte, setTexte] = useState("");
   const [enCours, startTransition] = useTransition();
   const ref = useRef<HTMLTextAreaElement>(null);
@@ -61,6 +61,7 @@ export function Composeur({ hotelId, compact, onEnvoye }: { hotelId: string; com
       <Textarea
         ref={ref}
         id="composeur-note"
+        autoFocus={autoFocus}
         value={texte}
         onChange={(e) => setTexte(e.target.value)}
         onKeyDown={(e) => {

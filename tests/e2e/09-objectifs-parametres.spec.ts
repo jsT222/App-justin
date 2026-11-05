@@ -1,4 +1,7 @@
+import { rechargerDemo } from "./helpers";
 import { expect, test } from "@playwright/test";
+
+test.beforeAll(rechargerDemo);
 
 test.describe.configure({ mode: "serial" });
 

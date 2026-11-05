@@ -1,4 +1,7 @@
+import { rechargerDemo } from "./helpers";
 import { expect, test } from "@playwright/test";
+
+test.beforeAll(rechargerDemo);
 
 test("clients : MRR, upsell, automatisations", async ({ page }) => {
   await page.goto("/clients");

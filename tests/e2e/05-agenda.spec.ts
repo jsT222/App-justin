@@ -1,4 +1,7 @@
+import { rechargerDemo } from "./helpers";
 import { expect, test } from "@playwright/test";
+
+test.beforeAll(rechargerDemo);
 
 test("agenda : liste groupée, création de RDV, calendrier", async ({ page }) => {
   await page.goto("/agenda");

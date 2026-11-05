@@ -124,6 +124,10 @@
   kbd {
     @apply font-sans;
   }
+  /* Les grilles de cartes ne doivent jamais s'élargir selon leur contenu (texte tronqué) */
+  :where([data-slot="card-content"].grid, [data-slot="card"]) {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 /* Barres de défilement discrètes */
