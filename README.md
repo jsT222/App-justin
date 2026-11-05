@@ -39,6 +39,3 @@ E2E_EMAIL=... E2E_PASSWORD=... npm run test:e2e  # tests de bout en bout (Playwr
 ```
 
 Les tests E2E rechargent les données de démo du compte de test : n'utilise **jamais** ton compte réel pour `E2E_EMAIL`.
-
-```bash
-```
