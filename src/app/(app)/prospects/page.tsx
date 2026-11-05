@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { PageEntete } from "@/components/layout/page-entete";
+import { getEtapes, getHotelsVue, getListes } from "@/lib/data";
+import { ProspectsTable } from "@/components/prospects/prospects-table";
 
 export const metadata: Metadata = { title: "Prospects" };
 
-export default function Page() {
-  return <PageEntete titre="Prospects" description="Module en cours de construction." />;
+export default async function PageProspects() {
+  const [hotels, etapes, listes] = await Promise.all([getHotelsVue(), getEtapes(), getListes()]);
+  return <ProspectsTable hotels={hotels} etapes={etapes} listes={listes} />;
 }

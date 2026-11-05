@@ -16,3 +16,15 @@ describe("utilitaires", () => {
     expect(telHref("04 94 00 11 22")).toBe("tel:0494001122");
   });
 });
+
+import { aujourdhuiParis, isoParis } from "@/lib/dates";
+
+describe("dates (heure de Paris)", () => {
+  it("convertit 9 h Paris en UTC selon l'heure d'hiver / d'été", () => {
+    expect(isoParis("2026-11-20", 9)).toBe("2026-11-20T08:00:00.000Z");
+    expect(isoParis("2026-07-14", 9)).toBe("2026-07-14T07:00:00.000Z");
+  });
+  it("donne la date du jour à Paris", () => {
+    expect(aujourdhuiParis(new Date("2026-11-05T23:30:00Z"))).toBe("2026-11-06");
+  });
+});

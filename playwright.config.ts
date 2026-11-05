@@ -1,4 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
+import { loadEnvConfig } from "@next/env";
+
+loadEnvConfig(process.cwd());
 
 /**
  * Tests E2E. Nécessitent un compte de test :
