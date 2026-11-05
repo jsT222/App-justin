@@ -28,3 +28,14 @@ describe("dates (heure de Paris)", () => {
     expect(aujourdhuiParis(new Date("2026-11-05T23:30:00Z"))).toBe("2026-11-06");
   });
 });
+
+import { remplirModele } from "@/lib/modeles";
+
+describe("modèles de messages", () => {
+  it("remplit les variables connues et laisse les autres", () => {
+    expect(remplirModele("Bonjour {prenom}, {nom_hotel} à {ville} ({inconnue})", { prenom: "Claire", nom_hotel: "Villa Mimosa", ville: "Antibes" }))
+      .toBe("Bonjour Claire, Villa Mimosa à Antibes ({inconnue})");
+    expect(remplirModele("{prenom}", { prenom: "" })).toBe("{prenom}");
+    expect(remplirModele("{etoiles} étoiles", { etoiles: 4 })).toBe("4 étoiles");
+  });
+});
