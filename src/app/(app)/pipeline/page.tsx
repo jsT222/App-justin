@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { PageEntete } from "@/components/layout/page-entete";
+import { getEtapes, getHotelsVue, getListes } from "@/lib/data";
+import { Kanban } from "@/components/pipeline/kanban";
 
 export const metadata: Metadata = { title: "Pipeline" };
 
-export default function Page() {
-  return <PageEntete titre="Pipeline" description="Module en cours de construction." />;
+export default async function PagePipeline() {
+  const [hotels, etapes, listes] = await Promise.all([getHotelsVue(), getEtapes(), getListes()]);
+  return <Kanban hotels={hotels} etapes={etapes} listes={listes} />;
 }

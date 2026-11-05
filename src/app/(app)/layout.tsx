@@ -13,7 +13,7 @@ export default async function LayoutApp({ children }: { children: React.ReactNod
       <Sidebar nom={nom} email={email} />
       <EnteteMobile nom={nom} email={email} />
       <main className="lg:pl-60">
-        <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 px-4 py-5 pb-24 sm:px-6 lg:py-6">{children}</div>
+        <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 has-[[data-pleine-largeur]]:max-w-none px-4 py-5 pb-24 sm:px-6 lg:py-6">{children}</div>
       </main>
     </div>
   );
