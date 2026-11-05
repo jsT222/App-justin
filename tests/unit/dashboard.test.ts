@@ -63,3 +63,23 @@ describe("totaux de proposition", () => {
     expect(t.premiereAnnee).toBe(6120 + 12 * 590);
   });
 });
+
+import { caTotal, moisFactures, mrr } from "@/lib/calculs/clients";
+
+describe("clients : MRR et CA", () => {
+  const ref = new Date("2026-11-05");
+  it("compte les mois facturés depuis la mise en service", () => {
+    expect(moisFactures("2026-11-01", ref)).toBe(1);
+    expect(moisFactures("2026-08-20", ref)).toBe(4);
+    expect(moisFactures("2026-12-01", ref)).toBe(0);
+    expect(moisFactures(null, ref)).toBe(0);
+  });
+  it("MRR = automatisations en production ; CA = setups + maintenances facturées", () => {
+    const autos = [
+      { prix_setup: 2500, prix_mensuel: 290, date_mise_en_service: "2026-08-20", statut: "en_production" as const },
+      { prix_setup: 2500, prix_mensuel: 150, date_mise_en_service: null, statut: "en_cours" as const },
+    ];
+    expect(mrr(autos)).toBe(290);
+    expect(caTotal(autos, ref)).toBe(2500 + 4 * 290 + 2500);
+  });
+});
