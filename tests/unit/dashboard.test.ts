@@ -48,3 +48,18 @@ describe("KPIs du dashboard", () => {
     expect(objectifPour(objectifs, "ca", new Date("2026-12-10"))).toBe(6000);
   });
 });
+
+import { totauxProposition } from "@/lib/calculs/proposition";
+
+describe("totaux de proposition", () => {
+  it("applique la remise à la mise en place uniquement (comme le trigger SQL)", () => {
+    const t = totauxProposition(
+      [{ quantite: 1, prix_setup: 2500, prix_mensuel: 290 }, { quantite: 1, prix_setup: 1800, prix_mensuel: 150 }, { quantite: 1, prix_setup: 2500, prix_mensuel: 150 }],
+      10,
+    );
+    expect(t.setup).toBe(6120);
+    expect(t.mensuel).toBe(590);
+    expect(t.remise).toBe(680);
+    expect(t.premiereAnnee).toBe(6120 + 12 * 590);
+  });
+});
