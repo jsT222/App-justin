@@ -1,7 +1,10 @@
 import { format, formatDistanceToNowStrict, isToday, isTomorrow, isYesterday, startOfDay } from "date-fns";
 import { fr } from "date-fns/locale";
+import { tz } from "@date-fns/tz";
 
 export const FUSEAU = "Europe/Paris";
+/** Option date-fns : calculs et affichages en heure de Paris, quel que soit le fuseau du serveur. */
+export const PARIS = { in: tz(FUSEAU) };
 
 /** Décalage (en minutes) de Paris par rapport à UTC à une date donnée. */
 function decalageParis(d: Date) {
@@ -34,23 +37,23 @@ export function aujourdhuiParis(d = new Date()) {
 
 export function dateCourte(d: string | Date | null | undefined) {
   if (!d) return "—";
-  return format(new Date(d), "d MMM yyyy", { locale: fr });
+  return format(new Date(d), "d MMM yyyy", { locale: fr, ...PARIS });
 }
 
 export function dateHeure(d: string | Date | null | undefined) {
   if (!d) return "—";
-  return format(new Date(d), "d MMM à HH:mm", { locale: fr });
+  return format(new Date(d), "d MMM à HH:mm", { locale: fr, ...PARIS });
 }
 
 /** « Aujourd'hui 14:00 », « Demain », « Hier », « lun. 12 nov. » */
 export function dateRelative(d: string | Date | null | undefined, avecHeure = true) {
   if (!d) return "—";
   const date = new Date(d);
-  const h = avecHeure ? ` ${format(date, "HH:mm")}` : "";
-  if (isToday(date)) return `Aujourd'hui${h}`;
-  if (isTomorrow(date)) return `Demain${h}`;
-  if (isYesterday(date)) return `Hier${h}`;
-  return format(date, "EEE d MMM", { locale: fr }) + h;
+  const h = avecHeure ? ` ${format(date, "HH:mm", PARIS)}` : "";
+  if (isToday(date, PARIS)) return `Aujourd'hui${h}`;
+  if (isTomorrow(date, PARIS)) return `Demain${h}`;
+  if (isYesterday(date, PARIS)) return `Hier${h}`;
+  return format(date, "EEE d MMM", { locale: fr, ...PARIS }) + h;
 }
 
 export function depuis(d: string | Date | null | undefined) {
@@ -61,7 +64,7 @@ export function depuis(d: string | Date | null | undefined) {
 /** En retard = prévue avant le début de la journée en cours. */
 export function estEnRetard(d: string | Date | null | undefined) {
   if (!d) return false;
-  return new Date(d) < startOfDay(new Date());
+  return new Date(d) < startOfDay(new Date(), PARIS);
 }
 
 /** Valeur pour <input type="datetime-local"> */

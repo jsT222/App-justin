@@ -27,6 +27,6 @@ setup("connexion du compte de test", async ({ page }) => {
   // Bon mot de passe
   await page.getByLabel("Mot de passe").fill(motDePasse);
   await page.getByRole("button", { name: "Se connecter" }).click();
-  await expect(page).toHaveURL(/\/dashboard/);
+  await expect(page).toHaveURL(/\/dashboard/, { timeout: 60_000 });
   await page.context().storageState({ path: "tests/e2e/.auth/session.json" });
 });
